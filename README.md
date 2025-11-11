@@ -28,12 +28,6 @@ Example output:
     "decision_maker_profiles": [
       { "role": "Head of Growth", "recommended_angle": "Efficiency and personalization" }
     ]
-  },
-  "footer": {
-    "tagline": "Find your customers — automatically.",
-    "description": "Give us your website, and Selda will analyze your business, find your best customers, and book meetings for you.",
-    "note": "No setup. No learning curve. Just growth.",
-    "link": "https://selda.ai"
   }
 }
 ```
