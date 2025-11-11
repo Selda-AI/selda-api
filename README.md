@@ -1,13 +1,13 @@
 # Selda API
 
-**Find your customers — automatically.**  
+**Find your customers - automatically.**  
 Give us your website, and Selda will analyze your business, find your best customers, and book meetings for you.  
 _No setup. No learning curve. Just growth._
 
 ---
 
 Selda API is the open-source intelligence layer of Selda.  
-It analyzes any website and returns structured insights about the business, its ideal customers, and recommended sales strategies — all in clean JSON format.
+It analyzes any website and returns structured insights about the business, its ideal customers, and recommended sales strategies - all in clean JSON format.
 
 Example:
 ```bash
@@ -38,13 +38,13 @@ Example output:
 }
 ```
 
-🚀 Go Further with Selda.ai
+Go further with Selda.ai
 
 Analyze businesses for free.  
 When you're ready for full automation:  
-✨  Run AI-powered campaigns  
-🤖  Automate outreach and follow-ups  
-📈  Let Selda book meetings for you  
+Run AI-powered campaigns  
+Automate outreach and follow-ups  
+Let Selda book meetings for you  
 → Start now at [Selda.ai](https://selda.ai)
 
 ---
@@ -90,10 +90,10 @@ node dist/cli.js https://example.com
 
 ## Project Scripts
 
-- `pnpm run dev` – start Fastify with live reload
-- `pnpm run build` – compile TypeScript to `dist`
-- `pnpm run start` – run the compiled server
-- `pnpm run test` – execute Vitest regression suite
+- `pnpm run dev` - start Fastify with live reload
+- `pnpm run build` - compile TypeScript to `dist`
+- `pnpm run start` - run the compiled server
+- `pnpm run test` - execute Vitest regression suite
 
 ## Environment Variables
 
