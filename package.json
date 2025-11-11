@@ -1,35 +1,38 @@
 {
   "name": "selda-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Selda API – open-source business understanding engine.",
+  "main": "dist/index.js",
   "bin": {
     "selda": "./dist/cli.js"
   },
   "scripts": {
-    "dev": "nodemon --watch src --ext ts --exec \"ts-node --esm src/index.ts\"",
+    "dev": "nodemon --watch src --ext ts --exec \"ts-node --transpile-only src/index.ts\"",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "packageManager": "pnpm@10.11.1",
   "dependencies": {
-    "@types/node": "^24.10.0",
     "axios": "^1.13.2",
+    "chalk": "^4.1.2",
     "cheerio": "^1.1.2",
     "commander": "^14.0.2",
     "dotenv": "^17.2.3",
     "fastify": "^5.6.2",
     "openai": "^6.8.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "yaml": "^2.8.1"
   },
   "devDependencies": {
     "@types/cheerio": "^1.0.0",
     "@types/commander": "^2.12.5",
-    "nodemon": "^3.1.11"
+    "@types/node": "^24.10.0",
+    "nodemon": "^3.1.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.8"
   }
 }
