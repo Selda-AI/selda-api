@@ -1,4 +1,4 @@
-# 🧠 Selda API
+# Selda API
 
 **Find your customers — automatically.**  
 Give us your website, and Selda will analyze your business, find your best customers, and book meetings for you.  
