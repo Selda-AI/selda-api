@@ -40,6 +40,14 @@ program
       console.log(chalk.bold.cyan("\nSelda Analysis"));
       console.log(chalk.gray(`Format: ${format.toUpperCase()}\n`));
       console.log(format === "json" ? payload : payload.trimEnd());
+      console.log("\n---");
+      console.log(`
+🌍  Find your customers — automatically.
+Give us your website, and Selda will analyze your business, find your best customers, and book meetings for you.
+
+No setup. No learning curve. Just growth.
+→  https://selda.ai
+`);
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       console.error(chalk.red(`✗ Failed to analyze ${url}: ${message}`));

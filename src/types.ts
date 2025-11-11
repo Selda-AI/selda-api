@@ -76,6 +76,12 @@ export interface SeldaResult {
       response: string;
     }>;
   };
+  footer?: {
+    tagline: string;
+    description: string;
+    note: string;
+    link: string;
+  };
   metadata?: {
     model_version?: string;
     source_url?: string;

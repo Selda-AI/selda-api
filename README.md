@@ -1,6 +1,53 @@
-# Selda API
+# 🧠 Selda API
 
-Selda API is an open-source core service that turns any public website into a structured sales intelligence brief. It can run as a Fastify HTTP API or as a CLI utility.
+**Find your customers — automatically.**  
+Give us your website, and Selda will analyze your business, find your best customers, and book meetings for you.  
+_No setup. No learning curve. Just growth._
+
+---
+
+Selda API is the open-source intelligence layer of Selda.  
+It analyzes any website and returns structured insights about the business, its ideal customers, and recommended sales strategies — all in clean JSON format.
+
+Example:
+```bash
+npx selda analyze https://example.com
+
+Example output:
+{
+  "company": {
+    "name": "Example Ltd",
+    "industry": "SaaS / Marketing",
+    "description": "Helps teams automate customer acquisition"
+  },
+  "business_understanding": {
+    "problem_they_solve": "Manual lead generation",
+    "value_proposition": "AI-powered outreach automation"
+  },
+  "target_strategy": {
+    "decision_maker_profiles": [
+      { "role": "Head of Growth", "recommended_angle": "Efficiency and personalization" }
+    ]
+  },
+  "footer": {
+    "tagline": "Find your customers — automatically.",
+    "description": "Give us your website, and Selda will analyze your business, find your best customers, and book meetings for you.",
+    "note": "No setup. No learning curve. Just growth.",
+    "link": "https://selda.ai"
+  }
+}
+```
+
+🚀 Go Further with Selda.ai
+
+Analyze businesses for free.  
+When you're ready for full automation:  
+✨  Run AI-powered campaigns  
+🤖  Automate outreach and follow-ups  
+📈  Let Selda book meetings for you  
+→ Start now at [Selda.ai](https://selda.ai)
+
+---
 
 ## Features
 
@@ -41,69 +88,18 @@ pnpm build
 node dist/cli.js https://example.com
 ```
 
-## Sample Output
-
-Running the CLI against `https://selda.ai` produces a structured `SeldaResult` JSON. Excerpt:
-
-```json
-{
-  "company": {
-    "name": "Selda",
-    "industry": "Sales Automation",
-    "tone_of_voice": "Conversational, supportive, and innovative"
-  },
-  "ideal_customer_profiles": {
-    "segments": [
-      {
-        "segment": "Small to Medium Enterprises (SMEs)",
-        "buying_motivations": ["Need for efficient customer acquisition"],
-        "typical_pains": ["High customer acquisition costs"],
-        "evaluation_criteria": ["Ease of integration"]
-      }
-    ]
-  },
-  "buying_triggers": {
-    "primary_signals": ["Increased sales team workload", "Interest in AI solutions"]
-  },
-  "product_breakdown": {
-    "key_offerings": [
-      {
-        "name": "AI Sales Automation",
-        "description": "Automates the process of finding customers, crafting messages, and booking meetings."
-      }
-    ],
-    "pricing_signals": ["Subscription-based pricing", "Free trial for early adopters"]
-  },
-  "sales_play_recommendations": {
-    "priority_sequences": [
-      {
-        "sequence_name": "Initial Outreach",
-        "channel": "Email",
-        "messaging_angle": "Emphasize the ease of use and immediate benefits of automation."
-      }
-    ],
-    "objection_handling": [
-      {
-        "objection": "We already have a sales process in place.",
-        "response": "Selda enhances your existing process by automating repetitive tasks."
-      }
-    ]
-  },
-  "metadata": {
-    "social_links": [
-      { "platform": "LinkedIn", "url": "https://www.linkedin.com/company/getselda" },
-      { "platform": "X (Twitter)", "url": "https://x.com/getselda" }
-    ]
-  }
-}
-```
-
 ## Project Scripts
 
 - `pnpm run dev` – start Fastify with live reload
 - `pnpm run build` – compile TypeScript to `dist`
 - `pnpm run start` – run the compiled server
 - `pnpm run test` – execute Vitest regression suite
+
+## Environment Variables
+
+- `OPENAI_API_KEY` – required
+- `OPENAI_MODEL` – optional (defaults to `gpt-4o-mini`)
+- `PORT` – optional, defaults to `3000`
 
 ## Integrating with Selda Core
 
@@ -126,12 +122,6 @@ const response = await fetch("https://api.selda.ai/analyze", {
 
 const analysis = await response.json();
 ```
-
-## Environment Variables
-
-- `OPENAI_API_KEY` – required
-- `OPENAI_MODEL` – optional (defaults to `gpt-4o-mini`)
-- `PORT` – optional, defaults to `3000`
 
 ## License
 
