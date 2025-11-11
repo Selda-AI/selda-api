@@ -97,6 +97,7 @@ curl -X POST http://localhost:3000/analyze \
 | `OPENAI_MODEL`    | Chat completion model name                              | `gpt-4o-mini`  |
 | `PORT`            | Fastify server port                                     | `3000`         |
 | `HOST`            | Fastify server host                                     | `0.0.0.0`      |
+| `SELDA_API_MODE`  | Deployment mode (`open` now, `private` for gateway v2)  | `open`         |
 
 Set variables in `.env` or export them before starting the process.
 
@@ -420,11 +421,6 @@ Find your customers automatically with Selda → [https://selda.ai](https://seld
 
 ---
 
-
-Find your customers automatically with Selda → [https://selda.ai](https://selda.ai)
-
----
-
 ## Project scripts
 
 - `pnpm run dev` - start Fastify with ts-node and nodemon
@@ -482,6 +478,28 @@ tests/
 - GitHub Action example for scheduled analyses.
 
 Contributions are welcome. Open issues or pull requests and we will review promptly.
+
+---
+
+## Upcoming: Selda API Gateway (v2)
+
+Stage 1 (this repository) keeps `/analyze` public, unauthenticated, and returns the JSON schema documented above.
+
+Planned extensions:
+
+- Authenticated `POST /v1/analyze` returning richer payloads (lead previews, refined angles, update suggestions).
+- `GET /v1/account` for credit/usage tracking.
+- API key or OAuth flows for partner integrations.
+
+Deployment toggle (already supported):
+
+```
+SELDA_API_MODE=open    # open | private
+```
+
+Later, setting `SELDA_API_MODE=private` can enable the gateway layer without changing `analyze()` itself.
+
+Beyond that, an “Intelligence Mode” could add site update recommendations and advanced sales angles using the same foundation.
 
 ---
 
