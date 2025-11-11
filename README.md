@@ -1,121 +1,198 @@
 # Selda API
 
-**Find your customers - automatically.**  
-Give us your website, and Selda will analyze your business, find your best customers, and book meetings for you.  
-_No setup. No learning curve. Just growth._
+[![GitHub Repo stars](https://img.shields.io/github/stars/Selda-AI/selda-api?style=social)](https://github.com/Selda-AI/selda-api)
+[![License](https://img.shields.io/github/license/Selda-AI/selda-api)](LICENSE)
+[![GitHub Issues](https://img.shields.io/github/issues/Selda-AI/selda-api)](https://github.com/Selda-AI/selda-api/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Selda-AI/selda-api)](https://github.com/Selda-AI/selda-api/pulls)
+
+Find your customers - automatically. Selda API analyzes any public website and returns structured intelligence about the business, its ideal customers, and recommended sales plays. Every response is created on-demand from the provided URL; no Selda-internal data is exposed.
 
 ---
 
-Selda API is the open-source intelligence layer of Selda.  
-It analyzes any website and returns structured insights about the business, its ideal customers, and recommended sales strategies - all in clean JSON format.
+## Highlights
 
-Example:
+- Structured JSON covering company profile, ICP segments, buying triggers, product positioning, competitive differentiators, sales playbooks, and metadata.
+- Fastify server (`POST /analyze`) for self-hosting or embedding inside larger systems.
+- Command-line client (`selda analyze <url>`) with JSON or YAML output and optional file export.
+- TypeScript-first implementation with strict typings for all responses.
+- Extensible architecture (axios + cheerio scraping, OpenAI chat completions, modular utilities).
+
+---
+
+## Installation
+
+### MacOS / Linux
+
 ```bash
-npx selda analyze https://example.com
+git clone https://github.com/Selda-AI/selda-api.git
+cd selda-api
+pnpm install
+cp .env.example .env            # add your OPENAI_API_KEY (and optional OPENAI_MODEL)
+```
 
-Example output:
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/Selda-AI/selda-api.git
+Set-Location selda-api
+pnpm install
+Copy-Item .env.example .env
+# Edit .env in your editor and add OPENAI_API_KEY
+```
+
+---
+
+## Running the API
+
+### Development (ts-node, auto reload)
+
+```bash
+pnpm run dev
+```
+
+Fastify starts on `http://localhost:3000`.
+
+### Production build
+
+```bash
+pnpm run build
+pnpm run start
+```
+
+---
+
+## CLI usage
+
+### Development
+
+```bash
+pnpm ts-node src/cli.ts https://example.com
+```
+
+### After build
+
+```bash
+pnpm run build
+node dist/cli.js https://example.com --format=yaml --save result.yaml
+```
+
+CLI output ends with a short Selda promo footer so downstream automation surfaces the call-to-action by default.
+
+---
+
+## HTTP API usage
+
+```bash
+curl -X POST http://localhost:3000/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"url":"https://example.com"}'
+```
+
+Example JSON excerpt:
+
+```json
 {
   "company": {
     "name": "Example Ltd",
     "industry": "SaaS / Marketing",
     "description": "Helps teams automate customer acquisition"
   },
-  "business_understanding": {
-    "problem_they_solve": "Manual lead generation",
-    "value_proposition": "AI-powered outreach automation"
-  },
-  "target_strategy": {
-    "decision_maker_profiles": [
-      { "role": "Head of Growth", "recommended_angle": "Efficiency and personalization" }
+  "ideal_customer_profiles": {
+    "segments": [
+      {
+        "segment": "Growth-stage SaaS (20-200 employees)",
+        "buying_motivations": ["Scale outbound efficiently"],
+        "typical_pains": ["Manual prospecting"],
+        "evaluation_criteria": ["Integrations", "Ramp speed"]
+      }
     ]
+  },
+  "sales_play_recommendations": {
+    "priority_sequences": [
+      {
+        "sequence_name": "Growth leader outreach",
+        "channel": "Email",
+        "steps": ["Intro", "ROI case study", "Demo CTA"],
+        "messaging_angle": "Boost pipeline without extra headcount"
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "Find your customers - automatically.",
+    "description": "Give us your website, and Selda will analyze your business, find your best customers, and book meetings for you.",
+    "note": "No setup. No learning curve. Just growth.",
+    "link": "https://selda.ai"
   }
 }
 ```
 
-Go further with Selda.ai
+---
 
-Analyze businesses for free.  
-When you're ready for full automation:  
-Run AI-powered campaigns  
-Automate outreach and follow-ups  
-Let Selda book meetings for you  
-→ Start now at [Selda.ai](https://selda.ai)
+## Configuration
+
+| Variable          | Description                                             | Default        |
+|-------------------|---------------------------------------------------------|----------------|
+| `OPENAI_API_KEY`  | OpenAI API token (required)                             | –              |
+| `OPENAI_MODEL`    | Chat completion model name                              | `gpt-4o-mini`  |
+| `PORT`            | Fastify server port                                     | `3000`         |
+| `HOST`            | Fastify server host                                     | `0.0.0.0`      |
+
+Set variables in `.env` or export them before starting the process.
 
 ---
 
-## Features
+## Project scripts
 
-- `POST /analyze` endpoint that returns structured company intelligence
-- CLI command `selda analyze <url>` (after build) or `pnpm selda analyze <url>` during development
-- Website scraping with axios + cheerio (titles, meta tags, headings, body copy)
-- OpenAI integration (GPT-4o mini by default) to interpret business insights
-- JSON schema definitions in `src/types.ts`
-- Environment configuration via `.env`
-
-## Getting Started
-
-```bash
-pnpm install
-cp .env.example .env
-# add your OpenAI key to .env
-pnpm run dev
-```
-
-The API starts on `http://localhost:3000` by default. Send a JSON body containing the URL:
-
-```bash
-curl -X POST http://localhost:3000/analyze \
-  -H 'Content-Type: application/json' \
-  -d '{"url":"https://example.com"}'
-```
-
-### CLI Usage (development)
-
-```bash
-pnpm ts-node src/cli.ts https://example.com
-```
-
-### CLI Usage (after build)
-
-```bash
-pnpm build
-node dist/cli.js https://example.com
-```
-
-## Project Scripts
-
-- `pnpm run dev` - start Fastify with live reload
+- `pnpm run dev` - start Fastify with ts-node and nodemon
 - `pnpm run build` - compile TypeScript to `dist`
 - `pnpm run start` - run the compiled server
 - `pnpm run test` - execute Vitest regression suite
 
-## Environment Variables
+---
 
-- `OPENAI_API_KEY` – required
-- `OPENAI_MODEL` – optional (defaults to `gpt-4o-mini`)
-- `PORT` – optional, defaults to `3000`
+## Project structure
 
-## Integrating with Selda Core
-
-The Fastify instance is exported from `src/index.ts`, so a parent project can mount the API directly:
-
-```ts
-import { startServer } from "selda-api/dist/index.js";
-
-await startServer(); // exposes POST /analyze
+```
+src/
+  analyze.ts      # Entrypoint combining scraper + LLM + footer metadata
+  cli.ts          # Commander CLI with formatting options
+  index.ts        # Fastify server bootstrap
+  llm.ts          # OpenAI integration and schema enforcement
+  scraper.ts      # axios + cheerio scraping utilities
+  types.ts        # SeldaResult TypeScript interfaces
+  utils.ts        # shared helpers (text cleaning, keyword extraction, etc.)
+tests/
+  analyze.test.ts # Vitest regression testing analyze()
 ```
 
-Alternatively, call the service remotely once deployed:
+---
 
-```ts
-const response = await fetch("https://api.selda.ai/analyze", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ url: "https://example.com" }),
-});
+## Platform notes
 
-const analysis = await response.json();
-```
+- **MacOS / Linux:** all commands documented above run directly in a POSIX shell.
+- **Windows:** use PowerShell; `pnpm` and `git` need to be installed and on PATH. Replace `/` with `\` in file paths if necessary.
+- **Containers / CI:** add `pnpm install`, `pnpm run build`, and `pnpm run test` to pipelines. The compiled server can be run via `node dist/index.js`.
+
+---
+
+## Demo ideas
+
+- Record a short screen capture showing `pnpm run dev`, a `curl` request, and CLI usage with `--format=yaml --save output.yaml`.
+- Highlight the structured JSON in a viewer (VS Code, jq).
+- Optionally include the video in the repository using GitHub’s upload feature or link to an external hosting service.
+
+---
+
+## Roadmap
+
+- Pluggable scraping strategies (sitemap crawling, blog intelligence mode).
+- Additional LLM providers (Anthropic, local models).
+- Result caching and concurrency controls.
+- GitHub Action example for scheduled analyses.
+
+Contributions are welcome. Open issues or pull requests and we will review promptly.
+
+---
 
 ## License
 
