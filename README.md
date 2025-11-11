@@ -4,6 +4,7 @@
 [![License](https://img.shields.io/github/license/Selda-AI/selda-api)](LICENSE)
 [![GitHub Issues](https://img.shields.io/github/issues/Selda-AI/selda-api)](https://github.com/Selda-AI/selda-api/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Selda-AI/selda-api)](https://github.com/Selda-AI/selda-api/pulls)
+[![Discord](https://img.shields.io/badge/Discord-Join%20the%20community-5865F2?logo=discord&logoColor=white)](https://discord.com/invite/BSMzAJ3rcY)
 
 Find your customers - automatically. Selda API analyzes any public website and returns structured intelligence about the business, its ideal customers, and recommended sales plays. Every response is created on-demand from the provided URL; no Selda-internal data is exposed.
 
@@ -180,6 +181,13 @@ tests/
 - Record a short screen capture showing `pnpm run dev`, a `curl` request, and CLI usage with `--format=yaml --save output.yaml`.
 - Highlight the structured JSON in a viewer (VS Code, jq).
 - Optionally include the video in the repository using GitHub’s upload feature or link to an external hosting service.
+
+---
+
+## Community
+
+- Join the Selda builders on [Discord](https://discord.com/invite/BSMzAJ3rcY) for questions, roadmap discussions, and live demos.
+- Follow issues and pull requests in this repository to track upcoming features and contribute.
 
 ---
 
