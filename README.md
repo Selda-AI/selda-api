@@ -89,28 +89,6 @@ curl -X POST http://localhost:3000/analyze \
   -d '{"url":"https://example.com"}'
 ```
 
-Example JSON excerpt:
-
-```json
-{
-  "company": { "...": "..." },
-  "business_understanding": { "...": "..." },
-  "target_strategy": { "...": "..." },
-  "action_guidelines": { "...": "..." },
-  "ideal_customer_profiles": { "...": "..." },
-  "buying_triggers": { "...": "..." },
-  "product_breakdown": { "...": "..." },
-  "competitive_landscape": { "...": "..." },
-  "content_and_proof": { "...": "..." },
-  "partnerships": { "...": "..." },
-  "sales_play_recommendations": { "...": "..." },
-  "footer": { "...": "..." },
-  "metadata": { "...": "..." }
-}
-```
-
----
-
 ## Configuration
 
 | Variable          | Description                                             | Default        |
@@ -128,19 +106,233 @@ Set variables in `.env` or export them before starting the process.
 
 The API always returns a `SeldaResult` object with these top-level sections:
 
-- **company** – core identity details: name, website, industry, tone of voice, keywords.
-- **business_understanding** – problem they solve, value proposition, competitive edge, market position, buying committee notes.
-- **target_strategy** – decision-maker personas (motivations, pain points, channel angles) plus recommended outreach channels and strategic notes.
-- **action_guidelines** – messaging style, sample pitch, suggested next steps.
-- **ideal_customer_profiles** – prioritized segments with motivations, pains, evaluation criteria, and positioning hints.
-- **buying_triggers** – signals worth monitoring and the channels to observe.
-- **product_breakdown** – key offerings with descriptions, target customers, and pricing signals.
-- **competitive_landscape** – notable competitors and stated differentiators.
-- **content_and_proof** – social proof references and call-to-action assets found on the site.
-- **partnerships** – integrations or ecosystem notes useful for alliances.
-- **sales_play_recommendations** – outreach sequences (channel, steps, messaging angle) and objection handling scripts.
-- **footer** – optional CTA object for consistency when embedding Selda-branded experiences.
-- **metadata** – model version, source URL, scrape timestamp, discovered social links, contact pages, and other diagnostic notes.
+- **company** – brand identity: name, website, industry, tone of voice, elevator pitch, keywords.
+- **business_understanding** – what problem the company solves, their value proposition, competitive edge, market position, and who signs off on the purchase.
+- **target_strategy** – decision-maker personas with motivations, pain points, recommended angles, channels, and concrete messaging snippets.
+- **action_guidelines** – sales messaging style, a ready-to-use pitch, and suggested next steps.
+- **ideal_customer_profiles** – prioritized segments with motivations, pains, evaluation criteria, and positioning guidance.
+- **buying_triggers** – signals worth monitoring and the channels where those signals surface.
+- **product_breakdown** – key offerings, short descriptions, target customer types, and pricing hints.
+- **competitive_landscape** – notable competitors alongside differentiators you can leverage in conversations.
+- **content_and_proof** – social proof and call-to-action assets (demos, case studies, waiting lists) discovered on the site.
+- **partnerships** – integration partners or ecosystem notes, useful for co-selling opportunities or platform alignment.
+- **sales_play_recommendations** – multi-step outreach sequences with channel choice, step-by-step flow, and messaging angle; plus objection handling templates.
+- **metadata** – model version used, source URL, scrape timestamp, extracted social links, contact pages, and diagnostic notes for traceability.
+- **footer** – optional call-to-action block used to keep downstream experiences aligned with Selda-brand messaging.
+
+### Example: Analysis for `https://selda.ai`
+
+```json
+{
+  "company": {
+    "name": "Selda",
+    "website": "https://selda.ai/",
+    "industry": "Sales Automation",
+    "description": "Selda helps businesses find and reach customers automatically, aiming to build entire businesses from idea to income using AI.",
+    "tone_of_voice": "Conversational, supportive, and innovative",
+    "keywords": [
+      "build business with AI",
+      "chat with AI to grow",
+      "autonomous sales",
+      "AI customer finder",
+      "personalized outreach",
+      "meeting booking AI",
+      "sales automation",
+      "lead generation AI",
+      "B2B sales automation",
+      "AI business development"
+    ]
+  },
+  "business_understanding": {
+    "problem_they_solve": "Businesses struggle with customer acquisition and outreach efficiency.",
+    "value_proposition": "Automates the process of finding customers, crafting personalized messages, and booking meetings, enabling rapid business growth.",
+    "competitive_advantage": "Fully autonomous outreach with no setup required, leveraging AI for personalized communication.",
+    "market_position": "Innovative leader in AI-driven sales automation, targeting businesses of all sizes.",
+    "buying_committee_notes": "Typically includes founders, sales managers, and marketing teams."
+  },
+  "target_strategy": {
+    "decision_maker_profiles": [
+      {
+        "role": "Founder/CEO",
+        "motivations": [
+          "Rapid growth",
+          "Cost efficiency",
+          "Automation of repetitive tasks"
+        ],
+        "pain_points": [
+          "Limited sales resources",
+          "Inefficient outreach processes",
+          "Difficulty in customer acquisition"
+        ],
+        "recommended_angle": "Highlight the speed and efficiency of customer acquisition.",
+        "recommended_channels": [
+          "Email",
+          "LinkedIn"
+        ],
+        "messaging_examples": [
+          "Transform your outreach with AI-driven automation.",
+          "Book qualified meetings in under 30 seconds!"
+        ]
+      }
+    ],
+    "recommended_channels": [
+      "Email",
+      "LinkedIn",
+      "Social Media"
+    ],
+    "strategic_notes": "Focus on showcasing case studies and testimonials to build trust."
+  },
+  "action_guidelines": {
+    "messaging_style": "Conversational and informative, emphasizing ease of use and efficiency.",
+    "example_pitch": "Imagine booking qualified meetings in under 30 seconds without lifting a finger. Selda automates your outreach and finds your ideal customers effortlessly.",
+    "recommended_next_steps": [
+      "Schedule a demo",
+      "Join the waitlist for early access",
+      "Explore case studies on the website"
+    ]
+  },
+  "ideal_customer_profiles": {
+    "segments": [
+      {
+        "segment": "Small to Medium Enterprises (SMEs)",
+        "buying_motivations": [
+          "Need for efficient sales processes",
+          "Desire for rapid customer acquisition",
+          "Limited sales staff"
+        ],
+        "typical_pains": [
+          "High customer acquisition costs",
+          "Ineffective outreach strategies",
+          "Time-consuming manual processes"
+        ],
+        "evaluation_criteria": [
+          "Ease of integration",
+          "Cost-effectiveness",
+          "Proven ROI"
+        ],
+        "suggested_positioning": "Position Selda as a cost-effective solution for automating sales outreach."
+      }
+    ]
+  },
+  "buying_triggers": {
+    "primary_signals": [
+      "Launching a new product",
+      "Expanding into new markets",
+      "Hiring new sales staff"
+    ],
+    "monitoring_channels": [
+      "LinkedIn",
+      "Industry news",
+      "Business forums"
+    ]
+  },
+  "product_breakdown": {
+    "key_offerings": [
+      {
+        "name": "AI Sales Automation",
+        "description": "Automates customer outreach, message crafting, and meeting scheduling.",
+        "target_customer": "B2B companies looking to streamline their sales processes."
+      }
+    ],
+    "pricing_signals": [
+      "Free credits for early members",
+      "Subscription-based pricing model"
+    ]
+  },
+  "competitive_landscape": {
+    "notable_competitors": [
+      "Salesloft",
+      "Outreach",
+      "HubSpot"
+    ],
+    "differentiators": [
+      "Fully autonomous outreach",
+      "No setup required",
+      "Personalized messaging without templates"
+    ]
+  },
+  "content_and_proof": {
+    "social_proof": [
+      "Trustpilot reviews",
+      "Case studies on the website"
+    ],
+    "call_to_action_assets": [
+      "Join the waitlist",
+      "Schedule a demo"
+    ]
+  },
+  "partnerships": {
+    "integration_partners": [
+      "CRM platforms",
+      "Email service providers"
+    ],
+    "ecosystem_notes": "Focus on building partnerships with platforms that enhance sales automation."
+  },
+  "sales_play_recommendations": {
+    "priority_sequences": [
+      {
+        "sequence_name": "Initial Outreach Campaign",
+        "channel": "Email",
+        "steps": [
+          "Identify target customers",
+          "Craft personalized messages",
+          "Schedule follow-ups"
+        ],
+        "messaging_angle": "Emphasize the speed and efficiency of Selda's automation."
+      }
+    ],
+    "objection_handling": [
+      {
+        "objection": "We already have a sales team.",
+        "response": "Selda complements your sales team by automating repetitive tasks, allowing them to focus on closing deals."
+      }
+    ]
+  },
+  "metadata": {
+    "notes": "Selda is positioned as a game-changer in the sales automation landscape, appealing to businesses looking for innovative solutions.",
+    "model_version": "gpt-4o-mini",
+    "source_url": "https://selda.ai/",
+    "scraped_at": "2025-11-11T18:46:53.797Z",
+    "social_links": [
+      {
+        "platform": "LinkedIn",
+        "url": "https://www.linkedin.com/company/getselda"
+      },
+      {
+        "platform": "X (Twitter)",
+        "url": "https://x.com/getselda"
+      },
+      {
+        "platform": "Instagram",
+        "url": "https://instagram.com/getselda"
+      }
+    ],
+    "contact_pages": [
+      "https://selda.ai/how-it-works#sales-teams",
+      "https://selda.ai/compare/selda-vs-salesloft",
+      "https://selda.ai/how-it-works",
+      "https://www.trustpilot.com/review/selda.ai",
+      "https://selda.ai/blog/zero-to-hero-ai-sales-automation-2025",
+      "https://selda.ai/blog/ai-sales-automation-guide-2025",
+      "https://selda.ai/about"
+    ],
+    "generated_at": "2025-11-11T18:47:25.441Z"
+  },
+  "footer": {
+    "tagline": "Find your customers — automatically.",
+    "description": "Give us your website, and Selda will analyze your business, find your best customers, and book meetings for you.",
+    "note": "No setup. No learning curve. Just growth.",
+    "link": "https://selda.ai"
+  }
+}
+```
+
+---
+
+Find your customers automatically with Selda → [https://selda.ai](https://selda.ai)
+
+---
+
 
 Find your customers automatically with Selda → [https://selda.ai](https://selda.ai)
 
