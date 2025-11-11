@@ -1,0 +1,35 @@
+{
+  "name": "selda-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "selda": "./dist/cli.js"
+  },
+  "scripts": {
+    "dev": "nodemon --watch src --ext ts --exec \"ts-node --esm src/index.ts\"",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.11.1",
+  "dependencies": {
+    "@types/node": "^24.10.0",
+    "axios": "^1.13.2",
+    "cheerio": "^1.1.2",
+    "commander": "^14.0.2",
+    "dotenv": "^17.2.3",
+    "fastify": "^5.6.2",
+    "openai": "^6.8.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^1.0.0",
+    "@types/commander": "^2.12.5",
+    "nodemon": "^3.1.11"
+  }
+}
