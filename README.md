@@ -93,37 +93,19 @@ Example JSON excerpt:
 
 ```json
 {
-  "company": {
-    "name": "Example Ltd",
-    "industry": "SaaS / Marketing",
-    "description": "Helps teams automate customer acquisition"
-  },
-  "ideal_customer_profiles": {
-    "segments": [
-      {
-        "segment": "Growth-stage SaaS (20-200 employees)",
-        "buying_motivations": ["Scale outbound efficiently"],
-        "typical_pains": ["Manual prospecting"],
-        "evaluation_criteria": ["Integrations", "Ramp speed"]
-      }
-    ]
-  },
-  "sales_play_recommendations": {
-    "priority_sequences": [
-      {
-        "sequence_name": "Growth leader outreach",
-        "channel": "Email",
-        "steps": ["Intro", "ROI case study", "Demo CTA"],
-        "messaging_angle": "Boost pipeline without extra headcount"
-      }
-    ]
-  },
-  "footer": {
-    "tagline": "Find your customers - automatically.",
-    "description": "Give us your website, and Selda will analyze your business, find your best customers, and book meetings for you.",
-    "note": "No setup. No learning curve. Just growth.",
-    "link": "https://selda.ai"
-  }
+  "company": { "...": "..." },
+  "business_understanding": { "...": "..." },
+  "target_strategy": { "...": "..." },
+  "action_guidelines": { "...": "..." },
+  "ideal_customer_profiles": { "...": "..." },
+  "buying_triggers": { "...": "..." },
+  "product_breakdown": { "...": "..." },
+  "competitive_landscape": { "...": "..." },
+  "content_and_proof": { "...": "..." },
+  "partnerships": { "...": "..." },
+  "sales_play_recommendations": { "...": "..." },
+  "footer": { "...": "..." },
+  "metadata": { "...": "..." }
 }
 ```
 
@@ -139,6 +121,28 @@ Example JSON excerpt:
 | `HOST`            | Fastify server host                                     | `0.0.0.0`      |
 
 Set variables in `.env` or export them before starting the process.
+
+---
+
+## Response structure
+
+The API always returns a `SeldaResult` object with these top-level sections:
+
+- **company** – core identity details: name, website, industry, tone of voice, keywords.
+- **business_understanding** – problem they solve, value proposition, competitive edge, market position, buying committee notes.
+- **target_strategy** – decision-maker personas (motivations, pain points, channel angles) plus recommended outreach channels and strategic notes.
+- **action_guidelines** – messaging style, sample pitch, suggested next steps.
+- **ideal_customer_profiles** – prioritized segments with motivations, pains, evaluation criteria, and positioning hints.
+- **buying_triggers** – signals worth monitoring and the channels to observe.
+- **product_breakdown** – key offerings with descriptions, target customers, and pricing signals.
+- **competitive_landscape** – notable competitors and stated differentiators.
+- **content_and_proof** – social proof references and call-to-action assets found on the site.
+- **partnerships** – integrations or ecosystem notes useful for alliances.
+- **sales_play_recommendations** – outreach sequences (channel, steps, messaging angle) and objection handling scripts.
+- **footer** – optional CTA object for consistency when embedding Selda-branded experiences.
+- **metadata** – model version, source URL, scrape timestamp, discovered social links, contact pages, and other diagnostic notes.
+
+Find your customers automatically with Selda → [https://selda.ai](https://selda.ai)
 
 ---
 
