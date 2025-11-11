@@ -13,6 +13,10 @@ const mockScrapedWebsite = {
   metaKeywords: ["knowledge", "docs"],
   socialLinks: [{ platform: "LinkedIn", url: "https://www.linkedin.com/company/notionhq" }],
   contactPages: ["https://www.notion.so/contact"],
+  testimonials: ["\"Notion keeps our entire org in sync.\" – COO, Example Corp"],
+  industriesServed: ["Technology companies", "Agencies"],
+  geographies: ["Global", "North America", "Europe"],
+  languagesDetected: ["en"],
   rawHtml: "<html></html>",
 };
 
@@ -45,6 +49,10 @@ const mockSeldaResult = {
     ],
     recommended_channels: ["Email", "LinkedIn"],
     strategic_notes: "Showcase asynchronous collaboration",
+    channel_priority: [
+      { channel: "Email", priority: "high", reason: "Asynchronous collaboration story resonates" },
+      { channel: "LinkedIn", priority: "medium", reason: "Strong community presence" },
+    ],
   },
   action_guidelines: {
     messaging_style: "Practical and design-led",
@@ -65,6 +73,13 @@ const mockSeldaResult = {
   buying_triggers: {
     primary_signals: ["Rapid hiring"],
     monitoring_channels: ["LinkedIn"],
+    trigger_actions: [
+      {
+        trigger: "Rapid hiring",
+        watch: "LinkedIn jobs",
+        recommended_action: "Share onboarding template to shorten ramp time.",
+      },
+    ],
   },
   product_breakdown: {
     key_offerings: [
@@ -79,10 +94,23 @@ const mockSeldaResult = {
   competitive_landscape: {
     notable_competitors: ["Coda", "Airtable"],
     differentiators: ["Community templates"],
+    counterplays: [
+      {
+        competitor: "Airtable",
+        counterplay: "Highlight Notion's unified docs and tasks versus disparate grids.",
+      },
+    ],
   },
   content_and_proof: {
     social_proof: ["Used by Figma"],
-    call_to_action_assets: ["Book a demo"],
+    call_to_action_assets: [
+      {
+        title: "Book a demo",
+        type: "demo",
+        used_for: "follow-up email",
+        url: "https://www.notion.so/demo",
+      },
+    ],
   },
   partnerships: {
     integration_partners: ["Slack", "Jira"],
@@ -103,11 +131,36 @@ const mockSeldaResult = {
         response: "Notion consolidates them in one workspace.",
       },
     ],
+    first_touch_template: {
+      email: "Subject: Give your team one source of truth\nHi {{first_name}}, noticed your team ships fast. The teams we work with replace scattered docs + dashboards with a single Notion workspace. Worth 15 minutes to see how?",
+      linkedin_dm: "Hi {{first_name}}, curious how you keep ops and product aligned today. We help teams like Figma run docs, projects, and knowledge in one place. Want to compare notes?",
+      phone_opener: "Calling to share how teams are decluttering their tooling stack with a single workspace. Is now a quick moment to explain?",
+    },
+  },
+  campaign_starter: {
+    objective: "Book 5 operations leader demos in 14 days",
+    sequence_outline: [
+      { day: 1, description: "Personalized intro email with template pack", channel: "Email" },
+      { day: 3, description: "Share customer story and async collaboration tips", channel: "LinkedIn" },
+      { day: 7, description: "Send notion playbook PDF with calendar link", channel: "Email" },
+    ],
+    success_metrics: ["Reply rate > 20%", "Booked demos", "Template downloads"],
+  },
+  verifier_insights: {
+    testimonials: ["\"Notion is the nerve center of everything we do.\" – COO, Example Corp"],
+    industries_served: ["Technology", "Agencies"],
+    geographies: ["Global", "North America"],
+    languages: ["en"],
   },
   metadata: {
     model_version: "mock-model",
     social_links: mockScrapedWebsite.socialLinks,
     contact_pages: mockScrapedWebsite.contactPages,
+    revops_checklist: [
+      "Tag lead as 'Notion ICP - Ops'",
+      "Sync LinkedIn company page into CRM",
+      "Track hiring signals for ops roles",
+    ],
   },
 };
 

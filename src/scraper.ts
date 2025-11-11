@@ -27,6 +27,10 @@ export interface ScrapedWebsite {
   metaKeywords: string[];
   socialLinks: SocialLink[];
   contactPages: string[];
+  testimonials: string[];
+  industriesServed: string[];
+  geographies: string[];
+  languagesDetected: string[];
   rawHtml: string;
 }
 
@@ -137,6 +141,120 @@ export async function scrapeWebsite(inputUrl: string): Promise<ScrapedWebsite> {
     new Set([...metaKeywords, ...extractTopKeywords(fullText, 20)])
   ).slice(0, 20);
 
+  const testimonials = dedupePreserveOrder(
+    $("[class*=testimonial], [id*=testimonial], blockquote")
+      .map((_, el) => cleanText($(el).text()))
+      .get()
+      .filter((text) => text.length > 25)
+  ).slice(0, 5);
+
+  const industriesServedSet = new Set<string>();
+  $("h1, h2, h3, h4, strong").each((_, el) => {
+    const heading = cleanText($(el).text());
+    if (!heading || !/industr(y|ies)/i.test(heading)) {
+      return;
+    }
+    const list = $(el).nextAll("ul, ol").first();
+    if (list.length) {
+      list.find("li").each((__, li) => {
+        const value = cleanText($(li).text());
+        if (value) industriesServedSet.add(value);
+      });
+    } else {
+      const paragraph = $(el).nextAll("p").first();
+      const value = cleanText(paragraph.text());
+      if (value) industriesServedSet.add(value);
+    }
+  });
+  const industriesServed = dedupePreserveOrder(Array.from(industriesServedSet)).slice(0, 10);
+
+  const GEO_KEYWORDS = [
+    "global",
+    "worldwide",
+    "international",
+    "north america",
+    "south america",
+    "europe",
+    "emea",
+    "asia",
+    "apac",
+    "latam",
+    "middle east",
+    "africa",
+    "australia",
+    "canada",
+    "united states",
+    "usa",
+    "united kingdom",
+    "uk",
+    "germany",
+    "france",
+    "spain",
+    "italy",
+    "sweden",
+    "finland",
+    "norway",
+    "denmark",
+    "netherlands",
+    "india",
+    "singapore",
+    "japan",
+    "brazil",
+  ];
+
+  const lowerFullText = fullText.toLowerCase();
+  const geographies = GEO_KEYWORDS.filter((term) => lowerFullText.includes(term)).map((term) => {
+    if (term.length <= 3) {
+      return term.toUpperCase();
+    }
+    return term
+      .split(" ")
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" ");
+  });
+
+  const KNOWN_LANGUAGES = [
+    "english",
+    "spanish",
+    "french",
+    "german",
+    "italian",
+    "portuguese",
+    "dutch",
+    "swedish",
+    "finnish",
+    "norwegian",
+    "danish",
+    "polish",
+    "czech",
+    "hungarian",
+    "estonian",
+    "latvian",
+    "lithuanian",
+    "russian",
+    "arabic",
+    "hindi",
+    "thai",
+    "chinese",
+    "japanese",
+    "korean",
+  ];
+
+  const languagesDetectedSet = new Set<string>();
+  const htmlLang = cleanText($("html").attr("lang"));
+  if (htmlLang) {
+    languagesDetectedSet.add(htmlLang.toLowerCase());
+  }
+  KNOWN_LANGUAGES.forEach((language) => {
+    const regex = new RegExp(`\\b${language}\\b`, "i");
+    if (regex.test(fullText)) {
+      languagesDetectedSet.add(language);
+    }
+  });
+  const languagesDetected = Array.from(languagesDetectedSet).map((lang) =>
+    lang.length <= 3 ? lang.toUpperCase() : lang.charAt(0).toUpperCase() + lang.slice(1)
+  );
+
   return {
     url,
     fetchedAt: new Date().toISOString(),
@@ -153,6 +271,10 @@ export async function scrapeWebsite(inputUrl: string): Promise<ScrapedWebsite> {
       url: link,
     })),
     contactPages: dedupePreserveOrder(contactPagesSet),
+    testimonials,
+    industriesServed,
+    geographies: dedupePreserveOrder(geographies),
+    languagesDetected,
     rawHtml,
   };
 }

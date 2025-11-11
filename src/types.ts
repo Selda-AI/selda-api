@@ -25,6 +25,11 @@ export interface SeldaResult {
     }>;
     recommended_channels: string[];
     strategic_notes?: string;
+    channel_priority?: Array<{
+      channel: string;
+      priority: "high" | "medium" | "low";
+      reason?: string;
+    }>;
   };
   action_guidelines: {
     messaging_style: string;
@@ -43,6 +48,11 @@ export interface SeldaResult {
   buying_triggers: {
     primary_signals: string[];
     monitoring_channels: string[];
+    trigger_actions?: Array<{
+      trigger: string;
+      watch: string;
+      recommended_action: string;
+    }>;
   };
   product_breakdown: {
     key_offerings: Array<{
@@ -55,10 +65,20 @@ export interface SeldaResult {
   competitive_landscape: {
     notable_competitors: string[];
     differentiators: string[];
+    counterplays?: Array<{
+      competitor: string;
+      counterplay: string;
+    }>;
   };
   content_and_proof: {
     social_proof: string[];
-    call_to_action_assets: string[];
+    call_to_action_assets: Array<{
+      title: string;
+      type?: string;
+      used_for?: string;
+      url?: string;
+      description?: string;
+    }>;
   };
   partnerships: {
     integration_partners: string[];
@@ -75,6 +95,28 @@ export interface SeldaResult {
       objection: string;
       response: string;
     }>;
+    first_touch_template?: {
+      email?: string;
+      linkedin_dm?: string;
+      phone_opener?: string;
+      sms?: string;
+    };
+  };
+  campaign_starter?: {
+    objective: string;
+    sequence_outline: Array<{
+      day: number;
+      description: string;
+      channel: string;
+    }>;
+    success_metrics: string[];
+  };
+  verifier_insights?: {
+    testimonials?: string[];
+    industries_served?: string[];
+    geographies?: string[];
+    languages?: string[];
+    awards_or_certifications?: string[];
   };
   footer?: {
     tagline: string;
@@ -90,6 +132,7 @@ export interface SeldaResult {
     social_links?: Array<{ platform: string; url: string }>;
     contact_pages?: string[];
     snapshot_notes?: string[];
+    revops_checklist?: string[];
     [key: string]: unknown;
   };
 }

@@ -108,16 +108,18 @@ The API always returns a `SeldaResult` object with these top-level sections:
 
 - **company** – brand identity: name, website, industry, tone of voice, elevator pitch, keywords.
 - **business_understanding** – what problem the company solves, their value proposition, competitive edge, market position, and who signs off on the purchase.
-- **target_strategy** – decision-maker personas with motivations, pain points, recommended angles, channels, and concrete messaging snippets.
+- **target_strategy** – decision-maker personas with motivations, pain points, recommended angles, channel recommendations, and optional channel_priority ordering.
 - **action_guidelines** – sales messaging style, a ready-to-use pitch, and suggested next steps.
 - **ideal_customer_profiles** – prioritized segments with motivations, pains, evaluation criteria, and positioning guidance.
-- **buying_triggers** – signals worth monitoring and the channels where those signals surface.
+- **buying_triggers** – signals worth monitoring, the channels where those signals surface, plus trigger_actions that map signal → recommended next move.
 - **product_breakdown** – key offerings, short descriptions, target customer types, and pricing hints.
-- **competitive_landscape** – notable competitors alongside differentiators you can leverage in conversations.
-- **content_and_proof** – social proof and call-to-action assets (demos, case studies, waiting lists) discovered on the site.
+- **competitive_landscape** – notable competitors, stated differentiators, and optional counterplays that help reposition against each rival.
+- **content_and_proof** – social proof and call-to-action assets enriched with type, use-case, and URL metadata.
 - **partnerships** – integration partners or ecosystem notes, useful for co-selling opportunities or platform alignment.
-- **sales_play_recommendations** – multi-step outreach sequences with channel choice, step-by-step flow, and messaging angle; plus objection handling templates.
-- **metadata** – model version used, source URL, scrape timestamp, extracted social links, contact pages, and diagnostic notes for traceability.
+- **sales_play_recommendations** – multi-step outreach sequences with channel choice, messaging angle, objection handling, and an optional first_touch_template for email/LinkedIn/phone/SMS.
+- **campaign_starter** – (optional) objective, day-by-day sequence outline, and success metrics to kick off a focused campaign.
+- **verifier_insights** – (optional) testimonials, industries served, geographies, languages, and awards to help validate positioning.
+- **metadata** – model version used, source URL, scrape timestamp, extracted social links, contact pages, RevOps checklist, and other diagnostic notes for traceability.
 - **footer** – optional call-to-action block used to keep downstream experiences aligned with Selda-brand messaging.
 
 ### Example: Analysis for `https://selda.ai`
@@ -180,7 +182,12 @@ The API always returns a `SeldaResult` object with these top-level sections:
       "LinkedIn",
       "Social Media"
     ],
-    "strategic_notes": "Focus on showcasing case studies and testimonials to build trust."
+    "strategic_notes": "Focus on showcasing case studies and testimonials to build trust.",
+    "channel_priority": [
+      { "channel": "Email", "priority": "high", "reason": "Strong case studies and template assets" },
+      { "channel": "LinkedIn", "priority": "medium", "reason": "Active founder presence and community" },
+      { "channel": "Social Media", "priority": "low", "reason": "Useful for retargeting and awareness" }
+    ]
   },
   "action_guidelines": {
     "messaging_style": "Conversational and informative, emphasizing ease of use and efficiency.",
@@ -224,6 +231,18 @@ The API always returns a `SeldaResult` object with these top-level sections:
       "LinkedIn",
       "Industry news",
       "Business forums"
+    ],
+    "trigger_actions": [
+      {
+        "trigger": "Hiring new sales staff",
+        "watch": "LinkedIn jobs",
+        "recommended_action": "Send demo CTA emphasizing faster ramp-up with fully automated outreach."
+      },
+      {
+        "trigger": "New market launch",
+        "watch": "Press releases, company blog",
+        "recommended_action": "Share geo-specific case study highlighting global reach of Selda."
+      }
     ]
   },
   "product_breakdown": {
@@ -249,6 +268,16 @@ The API always returns a `SeldaResult` object with these top-level sections:
       "Fully autonomous outreach",
       "No setup required",
       "Personalized messaging without templates"
+    ],
+    "counterplays": [
+      {
+        "competitor": "Salesloft",
+        "counterplay": "Emphasize zero-setup automation versus manual sequencing and admin work."
+      },
+      {
+        "competitor": "HubSpot",
+        "counterplay": "Highlight Selda's focus on booking meetings automatically rather than CRM maintenance."
+      }
     ]
   },
   "content_and_proof": {
@@ -257,8 +286,20 @@ The API always returns a `SeldaResult` object with these top-level sections:
       "Case studies on the website"
     ],
     "call_to_action_assets": [
-      "Join the waitlist",
-      "Schedule a demo"
+      {
+        "title": "Join the waitlist",
+        "type": "landing-page",
+        "used_for": "Top-of-funnel capture",
+        "url": "https://selda.ai/",
+        "description": "Primary CTA for early adopters"
+      },
+      {
+        "title": "Schedule a demo",
+        "type": "demo",
+        "used_for": "Middle-of-funnel follow-up",
+        "url": "https://selda.ai/#demo",
+        "description": "Live walkthrough request form"
+      }
     ]
   },
   "partnerships": {
@@ -286,6 +327,47 @@ The API always returns a `SeldaResult` object with these top-level sections:
         "objection": "We already have a sales team.",
         "response": "Selda complements your sales team by automating repetitive tasks, allowing them to focus on closing deals."
       }
+    ],
+    "first_touch_template": {
+      "email": "Subject: Book meetings without adding headcount\nHi {{first_name}}, noticed {{company}} is scaling quickly. Selda finds ideal targets, writes the outreach, and books meetings autonomously – teams plug it in and see pipeline in days. Worth a quick look?",
+      "linkedin_dm": "Hi {{first_name}}, curious how you're handling outbound volume. Selda automates prospecting + outreach and books meetings for teams like yours. Happy to share how it works.",
+      "phone_opener": "Calling because many founders are letting Selda handle outbound while their team focuses on demos. Mind if I explain how it books meetings on autopilot?",
+      "sms": "Selda books meetings for you in under 30 seconds. Want the quick overview link?"
+    }
+  },
+  "campaign_starter": {
+    "objective": "Book 10 qualified demos in 14 days for AI-forward SaaS founders",
+    "sequence_outline": [
+      { "day": 1, "description": "Send personalized intro email with Trustpilot proof", "channel": "Email" },
+      { "day": 3, "description": "Share LinkedIn DM summarizing 30-second onboarding", "channel": "LinkedIn" },
+      { "day": 5, "description": "Follow-up email with case study and calendar link", "channel": "Email" },
+      { "day": 9, "description": "Social retargeting with waitlist CTA", "channel": "Social Media" }
+    ],
+    "success_metrics": [
+      "Demo bookings",
+      "Replies referencing automation pain",
+      "Waitlist conversions"
+    ]
+  },
+  "verifier_insights": {
+    "testimonials": [
+      "\"Selda booked more demos in one week than our reps did in a month.\" – Head of Growth, BetaCo"
+    ],
+    "industries_served": [
+      "AI startups",
+      "B2B SaaS",
+      "Agencies"
+    ],
+    "geographies": [
+      "Global",
+      "North America",
+      "Europe"
+    ],
+    "languages": [
+      "English"
+    ],
+    "awards_or_certifications": [
+      "Featured on Product Hunt"
     ]
   },
   "metadata": {
@@ -315,6 +397,11 @@ The API always returns a `SeldaResult` object with these top-level sections:
       "https://selda.ai/blog/zero-to-hero-ai-sales-automation-2025",
       "https://selda.ai/blog/ai-sales-automation-guide-2025",
       "https://selda.ai/about"
+    ],
+    "revops_checklist": [
+      "Tag accounts interested in AI-led outbound",
+      "Sync Selda waitlist signups into CRM",
+      "Build dashboard tracking booking rate vs outreach volume"
     ],
     "generated_at": "2025-11-11T18:47:25.441Z"
   },
