@@ -20,6 +20,17 @@ Find your customers - automatically. Selda API analyzes any public website and r
 
 ---
 
+## Demo
+
+<video controls width="100%" src="docs/assets/selda-demo.mp4" title="Selda demo">
+  Your browser does not support the video tag. You can download the demo video
+  <a href="docs/assets/selda-demo.mp4">here</a>.
+</video>
+
+> Tallenna demovideo polkuun `docs/assets/selda-demo.mp4`, niin se näkyy yllä.
+
+---
+
 ## Installation
 
 ### MacOS / Linux
